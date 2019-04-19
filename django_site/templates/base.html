@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="{% static 'common/css/bootstrap.min.css' %}">
+
+    {% block style %}
+
+    {% endblock %}
+</head>
+<body>
+
+{% block content %}
+
+{% endblock %}
+
+<script src="{% static 'common/js/jquery-3.4.0.min.js' %}"></script>
+<script src="{% static 'common/js/bootstrap.min.js' %}"></script>
+
+{% block script %}
+
+{% endblock %}
+
+</body>
+</html>

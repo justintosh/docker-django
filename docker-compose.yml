@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+    django:
+        container_name: pub_django_server
+        build: .
+        command: gunicorn -b 0.0.0.0:8000 -w 1 django_site.wsgi # <-- for production 1 worker
+        volumes:
+            - ./django_site:/home/django_site
+        expose:
+            - 8000
+        # ports:
+        #    - 8000:8000
+        networks:
+            - nginx_network
+    nginx:
+        container_name: pub_nginx_server
+        restart: always
+        image: nginx:1.13
+        ports:
+            - 9999:8000
+        volumes:
+            - ./config/nginx/conf.d:/etc/nginx/conf.d
+            - ./logs:/home/logs
+            - ./django_site/static:/home/django_site/static
+            - ./django_site/media:/home/django_site/media
+        depends_on:  # <-- wait for django to be "ready" before starting this service
+            - django
+        networks:
+            - nginx_network
+networks:
+    nginx_network:
+        driver: bridge

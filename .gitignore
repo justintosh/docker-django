@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Custom
+.DS_Store
+logs/*.log
+SECRET_KEY.py
+.idea
